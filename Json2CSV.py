@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from pandas import DataFrame
 
-path = './JSON_ETH_TOP30/'
+path = './JSON_TRON/'
 
 def load(file_path):
     with open(file_path,'r') as f:
@@ -47,11 +47,11 @@ def saveAsCSV(path):
         data_array = np.hstack([Date, Balance, DAU, ETH_Vol, Exchange_Rank, Total_Rank, Txs])
 
         # Turn Array into Dataframe
-        df = DataFrame(data_array, index = None, columns = ['Date', 'Balance', 'DAU', 'ETH_Vol', 'Exchange Rank', 'Total Rank', 'Txs'])
+        df = DataFrame(data_array, index = None, columns = ['Date', 'Balance', 'DAU', 'Vol', 'Cate Rank', 'Total Rank', 'Txs'])
 
         # Save as CSV file
         save_file_name = file_name[0:-4] + 'csv'
-        save_file_path = './CSV_ETH_TOP30/' + save_file_name
+        save_file_path = './CSV_TRON/' + save_file_name
         df.to_csv(save_file_path)
 
         print(str(i) + ' file saved')

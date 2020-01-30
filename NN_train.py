@@ -13,8 +13,8 @@ from sklearn.metrics import classification_report,confusion_matrix
 
 df = pd.read_csv("./ETH_ALL.csv")
 
-predictor = ['Balance', 'ETH_Vol', 'Txs']
-target = ['DAU']
+predictor = ['Vol', 'Txs', 'DAU']
+target = ['Rank']
 
 
 X = df[predictor].values
@@ -31,7 +31,7 @@ middle_l = 4
 loop = 1
 
 while(mlp_score_test < 0.8 and mlp_score_train < 0.8):
-    mlp = MLPRegressor(hidden_layer_sizes=(300,middle_l,100), activation='tanh', solver='adam', max_iter=1000)
+    mlp = MLPRegressor(hidden_layer_sizes=(40,middle_l,40), activation='tanh', solver='lbfgs', max_iter=1000)
     mlp.fit(X_train,y_train)
 
     predict_train = mlp.predict(X_train)
@@ -42,10 +42,10 @@ while(mlp_score_test < 0.8 and mlp_score_train < 0.8):
     print("Starting Loop " + str(loop) + "; Using Middle Layer of " + str(middle_l))
     print('The Train Score Is ', mlp_score_train); print('The Test Score Is ', mlp_score_test)
     print("===================================================================================")
-    model_name = "./ETH_models/ETH_300_" + str(middle_l) + "_100_tanh_adam_500.m"
+    model_name = "./Models/ETH_300_" + str(middle_l) + "_100_tanh_adam_500.m"
     joblib.dump(mlp, model_name)
     loop += 1
     middle_l *= 2
-    if middle_l >= 4096:
+    if middle_l >= 2048:
         print("middle layer reaches 4096, breaking tests")
         break
